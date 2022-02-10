@@ -16,7 +16,7 @@ int	main(int argc, char const *argv[], char **envp)
 
 	if (argc != 3)
 	{
-		printf("wrong number of arguments");
+		printf("Wrong number of arguments");
 		return(1);
 	}
 	infile = argv[1];
@@ -48,19 +48,14 @@ int	main(int argc, char const *argv[], char **envp)
 			ft_strlcat(filename, "/", 1024);
 			ft_strlcat(filename, argv[2], 1024);
 			printf("filename -> %s\n", filename);
-			if ( access(filename, F_OK|X_OK) == 0 )
+			if ( access(filename, X_OK) == 0 )
 				break;
 			*filename = 0;
 			paths++;
 		}
-		if (*filename)
-			printf("✅✅✅ EXECUTABLE 👌\n");
-		else
+		if (!*filename)
 		{
-			errno = 2;
-			printf("🐣 Errorno here is: %i\n", errno);
-			perror(argv[2]); 
-			printf("🐣 Errorno here is: %i\n", errno);
+			printf("%s: command not found\n", argv[2]);
 			exit(127);
 		}
 		char *args[] = { filename, (char *)argv[1], 0 };
@@ -79,8 +74,7 @@ int	main(int argc, char const *argv[], char **envp)
 		{
 			perror("\n👴 waitpid"); 
 			printf("\n👴 Something bad happened -> wstatus: %i (%i)\n", wstatus, WEXITSTATUS(wstatus));
-
-			return(EXIT_FAILURE);
+			return(WEXITSTATUS(wstatus));
 		}
 		printf("\n👴 PAPA OUT! ✌️\n");
 	}
