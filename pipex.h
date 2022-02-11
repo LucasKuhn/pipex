@@ -1,6 +1,13 @@
 # include <stdlib.h> // Malloc and Free
 # include <unistd.h> // Write
+# include <unistd.h> // access execve pipe
+# include <stdio.h> // perror
+# include <string.h> // strerror
+# include <stdlib.h> // exit
+# include <fcntl.h> // open
+#include <errno.h> // perror -------->>>>> CAN I ?
 
+int		pipex(char **argv, char **envp);
 size_t	ft_strlcpy(char *dest, const char *src, size_t size);
 char	**ft_split(char const *s, char c);
 size_t	ft_strlcpy(char *dest, const char *src, size_t size);

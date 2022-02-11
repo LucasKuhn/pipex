@@ -1,1 +1,21 @@
-       0
+Makefile
+README.md
+child.c
+ft_split.c
+ft_split.o
+ft_strlcat.c
+ft_strlcat.o
+ft_strlcpy.c
+ft_strlcpy.o
+ft_strncmp.c
+ft_strncmp.o
+ft_strnstr.c
+infile
+main.c
+main.o
+main_old.c
+outfile
+pipex
+pipex.c
+pipex.h
+pipex.o
