@@ -56,12 +56,16 @@ void print_arr(char **arr)
 
 void	child_exec(char **argv, char **envp)
 {
-	char *path;
-	char **exec_args;
-	int infile_fd;
+	char	*path;
+	char	**exec_args;
+	int		infile_fd;
+	int		outfile_fd;
 
-	infile_fd = open(argv[1], O_RDONLY);
+	infile_fd = open(argv[1], O_RDONLY); // Opens the infile, access already checked
+	outfile_fd = open(argv[4], O_WRONLY | O_CREAT | O_TRUNC, 0777); // Opens the outfile for writing, creates it if doesn't exist, truncates the size to 0 to clear it, chmods 
+
 	dup2(infile_fd, STDIN_FILENO);
+	dup2(outfile_fd, STDOUT_FILENO);
 	exec_args = ft_split(argv[2], ' ');
 	path = get_executable(exec_args[0], envp);
 	printf("exec_args: \n");
@@ -70,18 +74,32 @@ void	child_exec(char **argv, char **envp)
 	exit(errno);
 }
 
-int	pipex(char **argv, char **envp)
+void check_files_access(char **argv)
 {
-	pid_t pid;
-	int pid_status;
-
 	if (access(argv[1], R_OK) == -1)
 	{
 		perror(argv[1]);
-		return(1);
+		exit(1);
 	}
+	if (access(argv[1], W_OK) == -1)
+	{
+		perror(argv[1]);
+		exit(1);
+	}
+	return ;
+}
+
+int	pipex(char **argv, char **envp)
+{
+	pid_t pid;
+	int pipe_fds[2];
+	int pid_status;
+
+	check_files_access(argv);
+	pipe(pipe_fds);
 	pid = fork();
 	pid_status = 0;
+
 	if ( pid == 0 )
 		child_exec(argv, envp);
 	else

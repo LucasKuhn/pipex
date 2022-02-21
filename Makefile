@@ -8,7 +8,7 @@ all: $(NAME)
 
 $(NAME): $(OBJS)
 	$(CC) $(OBJS) -o $(NAME)
-	./$(NAME) infile "cat -b"
+	./$(NAME) infile "tr o A" "tr A H" outfile
 
 re: clean all
 

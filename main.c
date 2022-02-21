@@ -2,7 +2,7 @@
 
 int	main(int argc, char *argv[], char **envp)
 {
-	if (argc != 3)
+	if (argc != 5)
 	{
 		printf("Wrong number of arguments");
 		return(1);
