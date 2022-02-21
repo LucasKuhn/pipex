@@ -54,19 +54,37 @@ void print_arr(char **arr)
 	}
 }
 
-void	child_exec(char **argv, char **envp)
+void	child_exec(char **argv, char **envp, int *pipe_fds)
 {
 	char	*path;
 	char	**exec_args;
 	int		infile_fd;
-	int		outfile_fd;
 
 	infile_fd = open(argv[1], O_RDONLY); // Opens the infile, access already checked
-	outfile_fd = open(argv[4], O_WRONLY | O_CREAT | O_TRUNC, 0777); // Opens the outfile for writing, creates it if doesn't exist, truncates the size to 0 to clear it, chmods 
 
-	dup2(infile_fd, STDIN_FILENO);
-	dup2(outfile_fd, STDOUT_FILENO);
+	dup2(infile_fd, STDIN_FILENO); // The stdin should come from the infile 
+	dup2(pipe_fds[1], STDOUT_FILENO); // Stdout should go to the the pipe open exit
+	close(pipe_fds[0]); // Close the other end of the pipe
 	exec_args = ft_split(argv[2], ' ');
+	path = get_executable(exec_args[0], envp);
+	printf("exec_args: \n");
+	print_arr(exec_args);
+	execve(path, exec_args, envp);
+	exit(errno);
+}
+
+void parent_exec(char **argv, char **envp, int *pipe_fds)
+{
+	int		outfile_fd;
+
+	outfile_fd = open(argv[4], O_WRONLY | O_CREAT | O_TRUNC, 0777); // Opens the outfile for writing, creates it if doesn't exist, truncates the size to 0 to clear it, chmods 
+	dup2(pipe_fds[0], STDIN_FILENO); // The stdin should come from the pipe entrance
+	dup2(outfile_fd, STDOUT_FILENO); // Stdout should go to the the outfile
+	close(pipe_fds[1]);				// Close the exit
+	
+	char	**exec_args;
+	char	*path;
+	exec_args = ft_split(argv[3], ' ');
 	path = get_executable(exec_args[0], envp);
 	printf("exec_args: \n");
 	print_arr(exec_args);
@@ -92,21 +110,22 @@ void check_files_access(char **argv)
 int	pipex(char **argv, char **envp)
 {
 	pid_t pid;
-	int pipe_fds[2];
 	int pid_status;
+	int pipe_fds[2];
 
 	check_files_access(argv);
 	pipe(pipe_fds);
 	pid = fork();
-	pid_status = 0;
 
 	if ( pid == 0 )
-		child_exec(argv, envp);
+		child_exec(argv, envp, pipe_fds);
 	else
 	{
+		pid_status = 0;
 		waitpid(pid, &pid_status, 0);
 		if (pid_status != 0)
 			return(WEXITSTATUS(pid_status));
+		parent_exec(argv, envp, pipe_fds);
 	}
 	return (0);
 }
