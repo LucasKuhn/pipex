@@ -38,7 +38,8 @@ char *get_executable(char *cmd, char **envp)
 	}
 	if (executable && *executable)
 		return(executable);
-	printf("%s: command not found\n", cmd);
+	write(STDERR_FILENO, "command not found: ", 19);
+	write(STDERR_FILENO, cmd, ft_strlen(cmd));
 	exit(127);
 }
 
@@ -64,11 +65,8 @@ void	child_exec(char **argv, char **envp, int *pipe_fds)
 
 	dup2(infile_fd, STDIN_FILENO); // The stdin should come from the infile 
 	dup2(pipe_fds[1], STDOUT_FILENO); // Stdout should go to the the pipe open exit
-	close(pipe_fds[0]); // Close the other end of the pipe
 	exec_args = ft_split(argv[2], ' ');
 	path = get_executable(exec_args[0], envp);
-	printf("exec_args: \n");
-	print_arr(exec_args);
 	execve(path, exec_args, envp);
 	exit(errno);
 }
@@ -77,17 +75,15 @@ void parent_exec(char **argv, char **envp, int *pipe_fds)
 {
 	int		outfile_fd;
 
+	close(pipe_fds[1]);				// Close the exit used by the child
 	outfile_fd = open(argv[4], O_WRONLY | O_CREAT | O_TRUNC, 0777); // Opens the outfile for writing, creates it if doesn't exist, truncates the size to 0 to clear it, chmods 
 	dup2(pipe_fds[0], STDIN_FILENO); // The stdin should come from the pipe entrance
 	dup2(outfile_fd, STDOUT_FILENO); // Stdout should go to the the outfile
-	close(pipe_fds[1]);				// Close the exit
 	
 	char	**exec_args;
 	char	*path;
 	exec_args = ft_split(argv[3], ' ');
 	path = get_executable(exec_args[0], envp);
-	printf("exec_args: \n");
-	print_arr(exec_args);
 	execve(path, exec_args, envp);
 	exit(errno);
 }
