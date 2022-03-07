@@ -6,12 +6,12 @@
 /*   By: lalex-ku <lalex-ku@42sp.org.br>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/07 15:26:54 by lalex-ku          #+#    #+#             */
-/*   Updated: 2022/03/07 15:50:38 by lalex-ku         ###   ########.fr       */
+/*   Updated: 2022/03/07 18:46:34 by lalex-ku         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "limits.h"
 #include "pipex.h"
+#include "limits.h"
 
 char	*get_executable(char *cmd, char **envp);
 char	**get_paths(char **envp);
