@@ -4,8 +4,8 @@
 // NUL-terminating the result if dstsize is not 0
 size_t	ft_strlcpy(char *dest, const char *src, size_t size)
 {
-	size_t	i;
-	size_t	src_size;
+	size_t i;
+	size_t src_size;
 
 	src_size = 0;
 	while (src[src_size] != '\0')

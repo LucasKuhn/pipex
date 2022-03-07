@@ -7,6 +7,7 @@
 # include <fcntl.h> // open
 #include <errno.h> // perror -------->>>>> CAN I ?
 
+void	ft_exec(char *command, char **envp);
 int		pipex(char **argv, char **envp);
 size_t	ft_strlcpy(char *dest, const char *src, size_t size);
 char	**ft_split(char const *s, char c);

@@ -1,8 +1,8 @@
-# include "pipex.h"
+#include "pipex.h"
 
 int	ft_strncmp(const char *s1, const char *s2, size_t n)
 {
-	unsigned int	i;
+	unsigned int i;
 
 	if (!n)
 		return (0);

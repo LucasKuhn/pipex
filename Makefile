@@ -1,18 +1,34 @@
 NAME	=	pipex
 CC		=	gcc
-SRCS	=	main.c pipex.c ft_split.c ft_strlcpy.c ft_strlcat.c ft_strncmp.c
-OBJS	=	$(SRCS:%.c=%.o)
+SRCS	=	main.c ft_exec.c pipex.c ft_split.c ft_strlcpy.c ft_strlcat.c ft_strncmp.c ft_strlen.c
+OBJ_DIR	=	obj
+OBJS	=	$(SRCS:%.c=$(OBJ_DIR)/%.o)
 CFLAGS	=	-Wall -Wextra -Werror
+VPATH	=	src utils
 
 all: $(NAME)
 
-$(NAME): $(OBJS)
+$(NAME): $(OBJ_DIR) $(OBJS)
 	$(CC) $(OBJS) -o $(NAME)
-	./$(NAME) infile "tr o A" "tr A H" outfile
 
-re: clean all
+$(OBJ_DIR)/%.o: %.c
+	$(CC) $(CFLAGS)  -c $< -o $@ -I ./
+
+$(OBJ_DIR):
+	mkdir -p obj
 
 clean:
-	rm -f $(OBJS) $(NAME)
+	@rm -rf obj
+	@echo "removed obj folder"
 
-.phony: all clean
+fclean: clean
+	@rm -rf $(NAME)
+	@echo "removed executable"
+
+re: fclean all
+
+go: all
+	./$(NAME) infile "tr o A" "tr A H" outfile
+	@cat outfile
+
+.phony: all clean go
