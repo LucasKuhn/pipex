@@ -6,7 +6,7 @@
 /*   By: lalex-ku <lalex-ku@42sp.org.br>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/07 15:37:18 by lalex-ku          #+#    #+#             */
-/*   Updated: 2022/03/07 15:50:49 by lalex-ku         ###   ########.fr       */
+/*   Updated: 2022/03/07 16:40:07 by lalex-ku         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,9 +16,9 @@ void	child_exec(char **argv, char **envp, int *pipe_fds)
 {
 	int	infile_fd;
 
-	infile_fd = open(argv[1], O_RDONLY); // Opens the infile, access already checked
-	dup2(infile_fd, STDIN_FILENO);    // The stdin should come from the infile
-	dup2(pipe_fds[1], STDOUT_FILENO); // Stdout should go to the the pipe open exit
+	infile_fd = open(argv[1], O_RDONLY);
+	dup2(infile_fd, STDIN_FILENO);
+	dup2(pipe_fds[1], STDOUT_FILENO);
 	ft_exec(argv[2], envp);
 }
 
@@ -26,10 +26,10 @@ void	parent_exec(char **argv, char **envp, int *pipe_fds)
 {
 	int	outfile_fd;
 
-	close(pipe_fds[1]); // Close the exit used by the child
-	outfile_fd = open(argv[4], O_WRONLY | O_CREAT | O_TRUNC, 0777); // Opens the outfile for writing, creates it if doesn't exist, truncates the size to 0 to clear it, chmods
-	dup2(pipe_fds[0], STDIN_FILENO); // The stdin should come from the pipe entrance
-	dup2(outfile_fd, STDOUT_FILENO); // Stdout should go to the the outfile
+	close(pipe_fds[1]);
+	outfile_fd = open(argv[4], O_WRONLY | O_CREAT | O_TRUNC, 0777);
+	dup2(pipe_fds[0], STDIN_FILENO);
+	dup2(outfile_fd, STDOUT_FILENO);
 	ft_exec(argv[3], envp);
 }
 
