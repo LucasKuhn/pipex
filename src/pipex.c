@@ -6,7 +6,7 @@
 /*   By: lalex-ku <lalex-ku@42sp.org.br>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/07 15:37:18 by lalex-ku          #+#    #+#             */
-/*   Updated: 2022/03/07 16:40:07 by lalex-ku         ###   ########.fr       */
+/*   Updated: 2022/03/08 18:18:22 by lalex-ku         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,15 +36,11 @@ void	parent_exec(char **argv, char **envp, int *pipe_fds)
 void	check_files_access(char **argv)
 {
 	if (access(argv[1], R_OK) == -1)
-	{
 		perror(argv[1]);
+	if (access(argv[4], W_OK) == -1)
+		perror(argv[4]);
+	if (errno)
 		exit(1);
-	}
-	if (access(argv[1], W_OK) == -1)
-	{
-		perror(argv[1]);
-		exit(1);
-	}
 	return ;
 }
 
