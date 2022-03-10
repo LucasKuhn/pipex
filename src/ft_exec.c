@@ -6,7 +6,7 @@
 /*   By: lalex-ku <lalex-ku@42sp.org.br>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/07 15:26:54 by lalex-ku          #+#    #+#             */
-/*   Updated: 2022/03/09 15:42:09 by lalex-ku         ###   ########.fr       */
+/*   Updated: 2022/03/09 18:52:08 by lalex-ku         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,6 +50,7 @@ char	*get_executable(char *cmd, char **envp)
 		return (executable);
 	write(STDERR_FILENO, "command not found: ", 19);
 	write(STDERR_FILENO, cmd, ft_strlen(cmd));
+	write(STDERR_FILENO, "\n", 1);
 	exit(0);
 }
 
