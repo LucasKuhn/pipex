@@ -6,13 +6,13 @@
 /*   By: lalex-ku <lalex-ku@42sp.org.br>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/10 13:17:38 by lalex-ku          #+#    #+#             */
-/*   Updated: 2022/03/10 13:17:41 by lalex-ku         ###   ########.fr       */
+/*   Updated: 2022/03/10 16:34:12 by lalex-ku         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "pipex.h"
 
-void ft_free_arr(char	**arr)
+void	ft_free_arr(char	**arr)
 {
 	int	y;
 
@@ -27,5 +27,5 @@ void ft_free_arr(char	**arr)
 	}
 	free(arr);
 	arr = NULL;
-	return ;	
+	return ;
 }
