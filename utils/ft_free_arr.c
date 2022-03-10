@@ -1,23 +1,31 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   ft_free_arr.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: lalex-ku <lalex-ku@42sp.org.br>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/03/07 15:37:02 by lalex-ku          #+#    #+#             */
-/*   Updated: 2022/03/10 13:50:57 by lalex-ku         ###   ########.fr       */
+/*   Created: 2022/03/10 13:17:38 by lalex-ku          #+#    #+#             */
+/*   Updated: 2022/03/10 13:17:41 by lalex-ku         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "pipex.h"
 
-int	main(int argc, char *argv[], char **envp)
+void ft_free_arr(char	**arr)
 {
-	if (argc != 5)
+	int	y;
+
+	if (!arr)
+		return ;
+	y = 0;
+	while (arr[y])
 	{
-		write(1, "Wrong number of arguments\n", 26);
-		return (1);
+		free(arr[y]);
+		arr[y] = NULL;
+		y++;
 	}
-	return (pipex(argv, envp));
+	free(arr);
+	arr = NULL;
+	return ;	
 }
