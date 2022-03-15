@@ -6,7 +6,7 @@
 /*   By: lalex-ku <lalex-ku@42sp.org.br>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/07 15:37:18 by lalex-ku          #+#    #+#             */
-/*   Updated: 2022/03/15 12:59:50 by lalex-ku         ###   ########.fr       */
+/*   Updated: 2022/03/15 15:02:54 by lalex-ku         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,7 @@ void	wait_for_child(int pid)
 	pid_status = 0;
 	waitpid(pid, &pid_status, 0);
 	if (pid_status != 0)
-		exit(WEXITSTATUS(pid_status));
+		exit(0);
 	return ;
 }
 
