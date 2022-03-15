@@ -1,6 +1,6 @@
 NAME	=	pipex
 CC		=	gcc
-SRCS	=	main.c ft_exec.c pipex.c ft_split.c ft_strlcpy.c ft_strlcat.c ft_strncmp.c ft_strlen.c ft_free_arr.c
+SRCS	=	main.c ft_exec.c pipex.c ft_split.c ft_strlcpy.c ft_strlcat.c ft_strncmp.c ft_strlen.c ft_free_arr.c get_exec_args.c check_files_access.c is_quote.c
 OBJ_DIR	=	obj
 OBJS	=	$(SRCS:%.c=$(OBJ_DIR)/%.o)
 CFLAGS	=	-Wall -Wextra -Werror

@@ -6,7 +6,7 @@
 /*   By: lalex-ku <lalex-ku@42sp.org.br>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/07 15:37:18 by lalex-ku          #+#    #+#             */
-/*   Updated: 2022/03/10 12:49:04 by lalex-ku         ###   ########.fr       */
+/*   Updated: 2022/03/14 17:00:22 by lalex-ku         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,21 +37,23 @@ void	parent_exec(char **argv, char **envp, int *pipe_fds)
 	ft_exec(argv[3], envp);
 }
 
-void	check_files_access(char **argv)
+void	wait_for_child(int pid)
 {
-	if (access(argv[1], R_OK) == -1)
-		perror(argv[1]);
-	if (access(argv[4], W_OK) == -1)
-		perror(argv[4]);
+	int	pid_status;
+
+	pid_status = 0;
+	waitpid(pid, &pid_status, 0);
+	if (pid_status != 0)
+		exit(WEXITSTATUS(pid_status));
 	return ;
 }
 
-int	pipex(char **argv, char **envp)
+int	pipex(int argc, char **argv, char **envp)
 {
 	pid_t	pid;
-	int		pid_status;
 	int		pipe_fds[2];
 
+	check_argc_count(argc);
 	check_files_access(argv);
 	pipe(pipe_fds);
 	pid = fork();
@@ -59,11 +61,8 @@ int	pipex(char **argv, char **envp)
 		child_exec(argv, envp, pipe_fds);
 	else
 	{
-		pid_status = 0;
-		waitpid(pid, &pid_status, 0);
-		if (pid_status != 0)
-			return (WEXITSTATUS(pid_status));
+		wait_for_child(pid);
 		parent_exec(argv, envp, pipe_fds);
 	}
-	return (0);
+	return (EXIT_SUCCESS);
 }

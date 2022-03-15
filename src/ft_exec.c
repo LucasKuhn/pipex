@@ -6,12 +6,12 @@
 /*   By: lalex-ku <lalex-ku@42sp.org.br>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/07 15:26:54 by lalex-ku          #+#    #+#             */
-/*   Updated: 2022/03/10 13:18:51 by lalex-ku         ###   ########.fr       */
+/*   Updated: 2022/03/14 18:57:40 by lalex-ku         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "pipex.h"
 #include "limits.h"
+#include "pipex.h"
 
 char	*get_executable(char *cmd, char **envp);
 char	**get_paths(char **envp);
@@ -21,7 +21,7 @@ void	ft_exec(char *command, char **envp)
 	char	*path;
 	char	**exec_args;
 
-	exec_args = ft_split(command, ' ');
+	exec_args = get_exec_args(command);
 	path = get_executable(exec_args[0], envp);
 	execve(path, exec_args, envp);
 	exit(errno);
