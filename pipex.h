@@ -6,7 +6,7 @@
 /*   By: lalex-ku <lalex-ku@42sp.org.br>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/07 16:41:00 by lalex-ku          #+#    #+#             */
-/*   Updated: 2022/03/14 21:24:05 by lalex-ku         ###   ########.fr       */
+/*   Updated: 2022/03/15 15:32:50 by lalex-ku         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,5 +36,6 @@ char	**get_exec_args(char *command);
 void	check_files_access(char **argv);
 void	check_argc_count(int argc);
 int		is_quote(char c);
+void	print_error(char *cmd, char *message);
 
 #endif
