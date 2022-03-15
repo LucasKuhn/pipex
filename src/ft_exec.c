@@ -6,7 +6,7 @@
 /*   By: lalex-ku <lalex-ku@42sp.org.br>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/07 15:26:54 by lalex-ku          #+#    #+#             */
-/*   Updated: 2022/03/15 15:11:30 by lalex-ku         ###   ########.fr       */
+/*   Updated: 2022/03/15 15:12:45 by lalex-ku         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ void	ft_exec(char *command, char **envp)
 	char	*path;
 	char	**exec_args;
 
-	path = get_executable(exec_args[0], envp);
+	path = get_executable(command, envp);
 	exec_args = get_exec_args(command);
 	execve(path, exec_args, envp);
 	exit(errno);
