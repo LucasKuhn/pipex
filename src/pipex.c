@@ -6,7 +6,7 @@
 /*   By: lalex-ku <lalex-ku@42sp.org.br>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/07 15:37:18 by lalex-ku          #+#    #+#             */
-/*   Updated: 2022/03/14 17:00:22 by lalex-ku         ###   ########.fr       */
+/*   Updated: 2022/03/15 09:55:34 by lalex-ku         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ void	parent_exec(char **argv, char **envp, int *pipe_fds)
 	int	outfile_fd;
 
 	close(pipe_fds[1]);
-	outfile_fd = open(argv[4], O_WRONLY | O_CREAT | O_TRUNC, 0777);
+	outfile_fd = open(argv[4], O_WRONLY | O_CREAT | O_TRUNC, 0644);
 	if (outfile_fd == -1)
 		exit(1);
 	dup2(pipe_fds[0], STDIN_FILENO);

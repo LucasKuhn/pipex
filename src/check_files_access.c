@@ -6,7 +6,7 @@
 /*   By: lalex-ku <lalex-ku@42sp.org.br>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/14 19:05:05 by lalex-ku          #+#    #+#             */
-/*   Updated: 2022/03/14 19:05:24 by lalex-ku         ###   ########.fr       */
+/*   Updated: 2022/03/15 09:56:21 by lalex-ku         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,9 +16,7 @@ void	check_files_access(char **argv)
 {
 	if (access(argv[1], R_OK) == -1)
 		perror(argv[1]);
-	if (access(argv[4], F_OK) == -1)
-		return ;
-	if (access(argv[4], W_OK) == -1)
+	if (open(argv[4], O_WRONLY | O_CREAT | O_TRUNC, 0644) == -1)
 		perror(argv[4]);
 	return ;
 }
