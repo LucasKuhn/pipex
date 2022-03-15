@@ -6,7 +6,7 @@
 /*   By: lalex-ku <lalex-ku@42sp.org.br>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/07 15:26:54 by lalex-ku          #+#    #+#             */
-/*   Updated: 2022/03/15 15:32:16 by lalex-ku         ###   ########.fr       */
+/*   Updated: 2022/03/15 15:50:00 by lalex-ku         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,10 +46,10 @@ char	*get_exec_path(char **exec_args, char **envp)
 		*exec_path = 0;
 		i++;
 	}
+	ft_free_arr(paths);
 	if (exec_path && *exec_path)
 		return (exec_path);
 	print_error(exec_args[0], "command not found");
-	ft_free_arr(paths);
 	ft_free_arr(exec_args);
 	free(exec_path);
 	exit(127);
