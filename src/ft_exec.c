@@ -6,7 +6,7 @@
 /*   By: lalex-ku <lalex-ku@42sp.org.br>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/07 15:26:54 by lalex-ku          #+#    #+#             */
-/*   Updated: 2022/03/15 17:49:43 by lalex-ku         ###   ########.fr       */
+/*   Updated: 2022/03/15 21:55:19 by lalex-ku         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ char	*get_exec_path(char **exec_args, char **envp)
 	int		i;
 
 	paths = get_paths(envp);
-	exec_path = malloc(sizeof(char) * (PATH_MAX));
+	exec_path = malloc(sizeof(char) * (PATH_MAX + 1));
 	i = 0;
 	while (paths[i])
 	{
