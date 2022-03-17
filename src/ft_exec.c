@@ -6,7 +6,7 @@
 /*   By: lalex-ku <lalex-ku@42sp.org.br>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/07 15:26:54 by lalex-ku          #+#    #+#             */
-/*   Updated: 2022/03/15 21:55:19 by lalex-ku         ###   ########.fr       */
+/*   Updated: 2022/03/17 09:20:05 by lalex-ku         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ void	ft_exec(char *command, char **envp)
 	exec_args = get_exec_args(command);
 	exec_path = get_exec_path(exec_args, envp);
 	execve(exec_path, exec_args, envp);
-	exit(errno);
+	exit(EXIT_FAILURE);
 }
 
 char	*get_exec_path(char **exec_args, char **envp)
@@ -42,14 +42,15 @@ char	*get_exec_path(char **exec_args, char **envp)
 		ft_strlcat(exec_path, "/", PATH_MAX);
 		ft_strlcat(exec_path, exec_args[0], PATH_MAX);
 		if (access(exec_path, X_OK) == 0)
-			break ;
+		{
+			ft_free_arr(paths);
+			return (exec_path);
+		}
 		*exec_path = 0;
 		i++;
 	}
-	ft_free_arr(paths);
-	if (exec_path && *exec_path)
-		return (exec_path);
 	print_error(exec_args[0], "command not found");
+	ft_free_arr(paths);
 	ft_free_arr(exec_args);
 	free(exec_path);
 	exit(127);

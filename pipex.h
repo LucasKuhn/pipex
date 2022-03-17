@@ -6,7 +6,7 @@
 /*   By: lalex-ku <lalex-ku@42sp.org.br>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/07 16:41:00 by lalex-ku          #+#    #+#             */
-/*   Updated: 2022/03/15 15:32:50 by lalex-ku         ###   ########.fr       */
+/*   Updated: 2022/03/16 15:40:43 by lalex-ku         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,14 +14,12 @@
 # define PIPEX_H
 
 # include <stdlib.h> // malloc and free
-# include <unistd.h> // write
-# include <unistd.h> // access execve pipe
+# include <unistd.h> // access execve pipe write dup2 fork
 # include <stdio.h> // perror
-# include <errno.h> // errno
 # include <string.h> // strerror
 # include <stdlib.h> // exit
 # include <fcntl.h> // open
-# include <sys/wait.h> //waitpid
+# include <sys/wait.h> // waitpid
 
 void	ft_exec(char *command, char **envp);
 int		pipex(int argc, char **argv, char **envp);
